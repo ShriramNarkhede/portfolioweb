@@ -10,7 +10,7 @@ class MyPortfolioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Shreeram Portfolio',
+      title: "Shriram's portfolio",
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system, // You can change this to ThemeMode.dark or light

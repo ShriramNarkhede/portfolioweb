@@ -22,7 +22,7 @@ class navItem extends StatelessWidget {
           style: GoogleFonts.poppins(
             color: Colors.black,
             fontSize: 18,
-            fontWeight: FontWeight.bold,
+
           ),
         ),
       ),

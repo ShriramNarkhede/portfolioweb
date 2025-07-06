@@ -1,6 +1,6 @@
 {
-    "name": "portfolio_web",
-    "short_name": "portfolio_web",
+    "name": "Shriram's portfolio",
+    "short_name": "Shriram's portfolio",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

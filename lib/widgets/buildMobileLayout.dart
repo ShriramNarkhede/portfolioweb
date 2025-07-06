@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '_buildTextCard.dart';
+import 'buildTextCard.dart';
 import 'buildImageCard.dart';
 
 class buildMobileLayout extends StatelessWidget {
@@ -16,7 +16,7 @@ class buildMobileLayout extends StatelessWidget {
         "Turisto is a trip planning Android application built using Java and XML, designed to help users plan their trips, generate itineraries, and get budget-friendly travel suggestions. The app provides a user-centric interface to explore locations, manage travel plans, and get personalized recommendations based on preferences and budget.";
     return Column(
       children: [
-        buildTextCard(title: "Protect Me App", desc: "$desc1", time: "1-6-2024 to 15-6-2024", link: ""),
+        buildTextCard(title: "Protect Me App", desc: "$desc1", time: "1-6-2024 to 15-6-2024", link: "https://github.com/shreeram2302/womenSafetyApp"),
         const SizedBox(height: 20),
         buildImageCard(url: "banner.png"),
         const SizedBox(height: 20),

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_web/widgets/CertificateSlider.dart';
 
 import 'package:portfolio_web/widgets/navitem.dart';
+import 'package:lottie/lottie.dart';
 
 import '../widgets/CustomFooter.dart';
 import '../widgets/buildDesktopLayout.dart';
@@ -13,7 +14,9 @@ import '../widgets/buildHeroText.dart';
 import '../widgets/buildMobileLayout.dart';
 import '../widgets/buildSlidingImages.dart';
 import '../widgets/buildtextSlide.dart';
+import '../widgets/navBarforMobile.dart';
 import '../widgets/skillsBar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -58,11 +61,10 @@ class PortfolioPage extends StatelessWidget {
     return Scaffold(
         key: _scaffoldKey,
         endDrawer: Drawer(
-          backgroundColor: Colors.white,
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.blue.shade50, Colors.white],
+                colors: [Colors.blue.shade300, Colors.blueGrey.shade100],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -72,41 +74,76 @@ class PortfolioPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Align(
                       alignment: Alignment.topRight,
                       child: IconButton(
-                        icon: const Icon(Icons.close, size: 28),
+                        icon: const Icon(
+                          Icons.close,
+                          size: 28,
+                          color: Colors.white,
+                        ),
                         onPressed: closeEndDrawer,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    navItem(
-                        title: "Home",
-                        onTap: () {
-                          scrollToSection(homeKey);
-                          closeEndDrawer();
-                        }),
-                    navItem(
-                        title: "Skills",
-                        onTap: () {
-                          scrollToSection(skillskey);
-                          closeEndDrawer();
-                        }),
-                    navItem(
-                        title: "Certifications",
-                        onTap: () {
-                          scrollToSection(certificateKey);
-                          closeEndDrawer();
-                        }),
-                    navItem(
-                        title: "Projects",
-                        onTap: () {
-                          scrollToSection(projectsKey);
-                          closeEndDrawer();
-                        }),
+                    Lottie.asset(
+                      'lottie.json',
+                      width: 240,
+                      height: 250,
+                      repeat: true,
+                      reverse: false,
+                      animate: true,
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Text(
+                        "Growing daily — one skill, one challenge, one line of code at a time.",
+                        style: GoogleFonts.poppins(color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                  
                     const Spacer(),
+                    Navbarformobile(
+                      title: "Home",
+                      onTap: () {
+                        scrollToSection(homeKey);
+                        closeEndDrawer();
+                      },
+                      icon: FaIcon(FontAwesomeIcons.home),
+                    ),
+                    const SizedBox(height: 20),
+                    Navbarformobile(
+                      title: "Skills",
+                      onTap: () {
+                        scrollToSection(skillskey);
+                        closeEndDrawer();
+                      },
+                      icon: FaIcon(FontAwesomeIcons.tools),
+                    ),
+                    const SizedBox(height: 20),
+                    Navbarformobile(
+                      title: "Certifications",
+                      onTap: () {
+                        scrollToSection(certificateKey);
+                        closeEndDrawer();
+                      },
+                      icon: FaIcon(FontAwesomeIcons.certificate),
+                    ),
+                    const SizedBox(height: 20),
+                    Navbarformobile(
+                      title: "Projects",
+                      onTap: () {
+                        scrollToSection(projectsKey);
+                        closeEndDrawer();
+                      },
+                      icon: FaIcon(FontAwesomeIcons.diagramProject),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     ElevatedButton.icon(
                       icon: const Icon(Icons.mail_outline),
                       label: const Text("Contact Me"),

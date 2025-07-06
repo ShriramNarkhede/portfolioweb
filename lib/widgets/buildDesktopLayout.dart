@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_web/widgets/_buildTextCard.dart';
+import 'package:portfolio_web/widgets/buildTextCard.dart';
 import 'package:portfolio_web/widgets/buildImageCard.dart';
 
 class buildDesktopLayout extends StatelessWidget {
