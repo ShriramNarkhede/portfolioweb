@@ -1,13 +1,19 @@
 import 'dart:ui';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:marqueer/marqueer.dart';
-import 'package:portfolio_web/widgets/GlassContainer.dart';
-import 'package:portfolio_web/widgets/footer.dart';
-import 'package:portfolio_web/widgets/slider_image.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import 'package:portfolio_web/widgets/CertificateSlider.dart';
+
+import 'package:portfolio_web/widgets/navitem.dart';
+
+import '../widgets/CustomFooter.dart';
+import '../widgets/buildDesktopLayout.dart';
+import '../widgets/buildHeroImage.dart';
+import '../widgets/buildHeroText.dart';
+import '../widgets/buildMobileLayout.dart';
+import '../widgets/buildSlidingImages.dart';
+import '../widgets/buildtextSlide.dart';
+import '../widgets/skillsBar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,491 +22,334 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       title: 'Shriram Portfolio',
       debugShowCheckedModeBanner: false,
-      home: const PortfolioPage(),
+      home: PortfolioPage(),
     );
   }
 }
 
 class PortfolioPage extends StatelessWidget {
-  const PortfolioPage({super.key});
+  PortfolioPage({super.key});
 
-  void _launchURL(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch $url';
-    }
+  final homeKey = GlobalKey();
+  final skillskey = GlobalKey();
+  final projectsKey = GlobalKey();
+  final certificateKey = GlobalKey();
+  final contactKey = GlobalKey();
+
+  void scrollToSection(GlobalKey key) {
+    Scrollable.ensureVisible(
+      key.currentContext!,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  void _openEndDrawer() {
+    _scaffoldKey.currentState!.openEndDrawer();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          bool isMobile = constraints.maxWidth < 600;
+    void closeEndDrawer() {
+      Navigator.of(context).pop();
+    }
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  isMobile ? _buildMobileNavbar() : _buildNavbar(),
-                  const SizedBox(height: 40),
-                  isMobile
-                      ? Column(
-                          children: [
-                            _buildHeroText(),
-                            const SizedBox(height: 20),
-                            _buildHeroImage(),
-                          ],
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.fromLTRB(80, 50, 0, 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(flex: 5, child: _buildHeroText()),
-                              Expanded(
-                                  flex: 4,
-                                  child: Column(
-                                    children: [
-                                      _buildHeroImage(),
-                                      SizedBox(height: 20),
-                                      _buildtextSlide(),
-                                    ],
-                                  )),
-                            ],
-                          ),
-                        ),
-                  const SizedBox(height: 100),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(80, 0, 0, 0),
-                    child: Text(
-                      "Skills & Services",
-                      style: GoogleFonts.poppins(
-                        color: Colors.lightBlueAccent,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
+    return Scaffold(
+        key: _scaffoldKey,
+        endDrawer: Drawer(
+          backgroundColor: Colors.white,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blue.shade50, Colors.white],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        icon: const Icon(Icons.close, size: 28),
+                        onPressed: closeEndDrawer,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 00),
-                    child: _buildSlidingImages(),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Coding Skills Column
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            sectionTitle("Coding Skills"),
-                            const SizedBox(height: 20),
-                            skillBar("Java", "assets/java.png", 0.8),
-                            skillBar("Javascript", "assets/js.png", 0.25),
-                            skillBar("Flutter", "assets/flutter.png", 0.85),
-                            skillBar("Python", "assets/python.png", 0.3),
-                          ],
+                    const SizedBox(height: 20),
+                    navItem(
+                        title: "Home",
+                        onTap: () {
+                          scrollToSection(homeKey);
+                          closeEndDrawer();
+                        }),
+                    navItem(
+                        title: "Skills",
+                        onTap: () {
+                          scrollToSection(skillskey);
+                          closeEndDrawer();
+                        }),
+                    navItem(
+                        title: "Certifications",
+                        onTap: () {
+                          scrollToSection(certificateKey);
+                          closeEndDrawer();
+                        }),
+                    navItem(
+                        title: "Projects",
+                        onTap: () {
+                          scrollToSection(projectsKey);
+                          closeEndDrawer();
+                        }),
+                    const Spacer(),
+                    ElevatedButton.icon(
+                      icon: const Icon(Icons.mail_outline),
+                      label: const Text("Contact Me"),
+                      onPressed: () {
+                        scrollToSection(contactKey);
+                        closeEndDrawer();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      const SizedBox(width: 40),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
 
-                      // Professional Skills Column
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            sectionTitle("Professional Skills"),
-                            const SizedBox(height: 20),
-                            skillBar("Android Development", "andoid.png", 0.8),
-                            skillBar(
-                                "Wordpress", "wordpress.png", 0.2),
-                            skillBar("AI ML", "ai.png", 0.4),
-                          ],
-                        ),
+        // Disable opening the end drawer with a swipe gesture.
+        endDrawerEnableOpenDragGesture: false,
+        backgroundColor: Colors.white,
+        body: LayoutBuilder(builder: (context, constraints) {
+          bool isMobile = constraints.maxWidth < 600;
+          return Column(
+            children: [
+              Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1), // subtle shadow
+                        spreadRadius: 2,
+                        blurRadius: 6,
+                        offset:
+                            const Offset(0, 3), // horizontal, vertical offset
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 20),
-                  // Certifications Column
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                    child: Text(
-                      "Certifications",
-                      style: GoogleFonts.poppins(
-                        color: Colors.lightBlueAccent,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  child: isMobile ? _buildMobileNavbar() : _buildNavbar()),
+              const SizedBox(height: 10),
+              Expanded(
+                child: SingleChildScrollView(
+                    child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      KeyedSubtree(
+                        key: homeKey,
+                        child: isMobile
+                            ? Column(
+                                children: [
+                                  buildHeroText(),
+                                  const SizedBox(height: 20),
+                                  buildHeroImage(),
+                                  SizedBox(height: 10),
+                                  buildtextSlide(),
+                                ],
+                              )
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(80, 50, 0, 0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(flex: 5, child: buildHeroText()),
+                                    Expanded(
+                                        flex: 4,
+                                        child: Column(
+                                          children: const [
+                                            buildHeroImage(),
+                                            SizedBox(height: 20),
+                                            buildtextSlide(),
+                                          ],
+                                        )),
+                                  ],
+                                ),
+                              ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  CertificateSlider(),
-                  const SizedBox(height: 40),
-                  // Projects Column
-                  Text(
-                    'MY PROJECTS',
-                    style: GoogleFonts.poppins(
-                      color: Colors.lightBlueAccent,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
+                      const SizedBox(height: 100),
+                      KeyedSubtree(
+                        key: skillskey,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(80, 0, 0, 0),
+                          child: Text(
+                            "Skills & Services",
+                            style: GoogleFonts.poppins(
+                              color: Colors.lightBlueAccent,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 00),
+                        child: buildSlidingImages(),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Coding Skills Column
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                sectionTitle("Coding Skills"),
+                                const SizedBox(height: 20),
+                                skillsBar(
+                                    label: "Java",
+                                    iconPath: "assets/java.png",
+                                    progress: 1.0,
+                                    context: context),
+                                skillsBar(
+                                    label: "Javascript",
+                                    iconPath: "assets/js.png",
+                                    progress: 0.25,
+                                    context: context),
+                                skillsBar(
+                                    label: "Flutter",
+                                    iconPath: "assets/flutter.png",
+                                    progress: 0.75,
+                                    context: context),
+                                skillsBar(
+                                    label: "Python",
+                                    iconPath: "assets/python.png",
+                                    progress: 0.6,
+                                    context: context),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 40),
 
-                  //footer section
-                  const SizedBox(height: 40),
-                  CustomFooter(),
-                  const SizedBox(height: 50),
-                ],
+                          // Professional Skills Column
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                sectionTitle("Professional Skills"),
+                                const SizedBox(height: 20),
+                                skillsBar(
+                                    label: "Android Development",
+                                    iconPath: "andoid.png",
+                                    progress: 0.9,
+                                    context: context),
+                                skillsBar(
+                                    label: "Wordpress",
+                                    iconPath: "wordpress.png",
+                                    progress: 0.2,
+                                    context: context),
+                                skillsBar(
+                                    label: "AI ML",
+                                    iconPath: "ai.png",
+                                    progress: 0.4,
+                                    context: context),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 20),
+                      // Certifications Column
+                      KeyedSubtree(
+                        key: certificateKey,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: Text(
+                            "Certifications",
+                            style: GoogleFonts.poppins(
+                              color: Colors.lightBlueAccent,
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      CertificateSlider(),
+                      const SizedBox(height: 40),
+                      // Projects Column
+                      KeyedSubtree(
+                        key: projectsKey,
+                        child: Text(
+                          'MY PROJECTS',
+                          style: GoogleFonts.poppins(
+                            color: Colors.lightBlueAccent,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      isMobile ? buildMobileLayout() : buildDesktopLayout(),
+
+                      //footer section
+                      const SizedBox(height: 40),
+                      KeyedSubtree(key: contactKey, child: CustomFooter()),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
+                )),
               ),
-            ),
+            ],
           );
-        },
-      ),
-    );
-  }
-
-//projects section
-  Widget _buildMobileLayout() {
-    String desc1 = "A real-time emergency alert system developed using Kotlin for Android, aimed at enhancing women's safety through smart, responsive features. The app integrates shake detection to trigger alerts, captures the user’s live location, and automatically records an image and voice note during emergencies. It also supports Wear OS integration, enabling smartwatch-triggered alerts for faster response. The system ensures swift and silent communication with pre-defined contacts, offering a reliable layer of personal security.";
-    String desc2 = "Turisto is a trip planning Android application built using Java and XML, designed to help users plan their trips, generate itineraries, and get budget-friendly travel suggestions. The app provides a user-centric interface to explore locations, manage travel plans, and get personalized recommendations based on preferences and budget.";
-    return Column(
-      children: [
-        _buildTextCard("Protect Me App","$desc1","1-6-2024 to 15-6-2024"),
-        const SizedBox(height: 20),
-        _buildImageCard("banner.png"),
-        const SizedBox(height: 20),
-        _buildTextCard("Touristo App ","$desc2","1-6-2024 to 15-6-2024"),
-        const SizedBox(height: 20),
-        _buildImageCard("touristobanner.png")
-      ],
-    );
-  }
-
-  Widget _buildDesktopLayout() {
-    String desc1 = "A real-time emergency alert system developed using Kotlin for Android, aimed at enhancing women's safety through smart, responsive features. The app integrates shake detection to trigger alerts, captures the user’s live location, and automatically records an image and voice note during emergencies. It also supports Wear OS integration, enabling smartwatch-triggered alerts for faster response. The system ensures swift and silent communication with pre-defined contacts, offering a reliable layer of personal security.";
-    String desc2 = "Turisto is a trip planning Android application built using Java and XML, designed to help users plan their trips, generate itineraries, and get budget-friendly travel suggestions. The app provides a user-centric interface to explore locations, manage travel plans, and get personalized recommendations based on preferences and budget.";
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: _buildTextCard("Protect Me App","$desc1","1-6-2024 to 15-6-2024"),),
-            const SizedBox(width: 20),
-            Expanded(child: _buildImageCard("banner.png")),
-          ],
-        ),
-        const SizedBox(height: 30),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: _buildImageCard("touristobanner.png")),
-            const SizedBox(width: 20),
-            Expanded(child: _buildTextCard("Touristo App ","$desc2","1-6-2024 to 15-6-2024"),),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTextCard(String title, String desc, String time) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '$title',
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            color: Colors.lightBlueAccent,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          '$desc',
-          style: GoogleFonts.poppins(
-            color: Colors.grey[600],
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Row(
-          children: [
-            const Icon(Icons.refresh, color: Colors.lightBlueAccent),
-            const SizedBox(width: 5),
-            Text(
-              '$time',
-              style: GoogleFonts.poppins(color: Colors.lightBlueAccent),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildImageCard(String url) {
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(
-          image: AssetImage(url),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
-
-  //sliding images
-
-  Widget _buildSlidingImages() {
-    return SizedBox(
-      height: 100,
-      child: Marqueer(
-        interaction: false,
-        pps: 32,
-        direction: MarqueerDirection.ltr,
-        restartAfterInteractionDuration: const Duration(seconds: 3),
-        child: Row(
-          children: sliderItems.map((item) {
-            return Card(
-              elevation: 3,
-              shadowColor: const Color.fromARGB(255, 100, 99, 99),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              color: const Color.fromARGB(255, 0, 0, 0),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    height: 75,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Image.asset(item.imagePath),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 8, 16, 8),
-                    child: Text(
-                      item.title,
-                      style: GoogleFonts.openSans(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        ),
-      ),
-    );
-  }
-
-
-  // sliding text animation
-  Widget _buildtextSlide() {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 33,
-          ),
-          Text(
-            "I can ",
-            style: GoogleFonts.abel(
-              textStyle: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 24,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal,
-                letterSpacing: 0.0,
-              ),
-            ),
-          ),
-          AnimatedTextKit(
-            displayFullTextOnTap: true,
-            repeatForever: true,
-            animatedTexts: [
-              TypewriterAnimatedText(
-                'build your first app',
-                textStyle: GoogleFonts.abel(
-                  textStyle: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0.0,
-                  ),
-                ),
-              ),
-              TypewriterAnimatedText(
-                'edit your video',
-                textStyle: GoogleFonts.abel(
-                  textStyle: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0.0,
-                  ),
-                ),
-              ),
-              TypewriterAnimatedText(
-                'make you a logo',
-                textStyle: GoogleFonts.abel(
-                  textStyle: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0.0,
-                  ),
-                ),
-              ),
-              TypewriterAnimatedText(
-                'build you a website',
-                textStyle: GoogleFonts.abel(
-                  textStyle: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0.0,
-                  ),
-                ),
-              ),
-              TypewriterAnimatedText(
-                'make you a poster',
-                textStyle: GoogleFonts.abel(
-                  textStyle: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0.0,
-                  ),
-                ),
-              ),
-              TypewriterAnimatedText(
-                'make you a flyer',
-                textStyle: GoogleFonts.abel(
-                  textStyle: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0.0,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeroText() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Hello !",
-            style:
-                GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w500)),
-        const SizedBox(height: 10),
-        RichText(
-          text: TextSpan(
-            style: GoogleFonts.poppins(fontSize: 38, color: Colors.black),
-            children: const [
-              TextSpan(text: "I’m "),
-              TextSpan(
-                  text: "Shriram Narkhede",
-                  style: TextStyle(
-                      color: Colors.blue, fontWeight: FontWeight.bold)),
-              TextSpan(
-                  text: ",\nMobile App Developer & Data Science Enthusiast"),
-            ],
-          ),
-        ),
-        const SizedBox(height: 15),
-        Text(
-          "Innovative Flutter Developer with Expertise in Building Scalable Cross-Platform \nApps and Driving Seamless User Experiences",
-          style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey[600]),
-        ),
-        const SizedBox(height: 20),
-        Row(
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              ),
-              child: const Text(
-                "Hire Me",
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            const SizedBox(width: 10),
-            OutlinedButton(
-              onPressed: () {
-                _launchURL("https://wa.me/1234567890");
-              },
-              child: const Text(
-                "Whatsapp",
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _buildHeroImage() {
-    return SizedBox(
-      height: 400,
-      width: 400,
-      child: Center(
-          child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(300)),
-        child: Image.asset("profile.png"),
-      )),
-    );
+        }));
   }
 
   Widget _buildNavbar() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const FlutterLogo(size: 30),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Image.asset(
+            "logot.png",
+            width: 48,
+            height: 48,
+          ),
+        ),
         Row(
           children: [
-            _navItem("Home"),
-            _navItem("Skills"),
-            _navItem("Certifications"),
-            _navItem("Projects"),
+            navItem(title: "Home", onTap: () => scrollToSection(homeKey)),
+            navItem(title: "Skills", onTap: () => scrollToSection(skillskey)),
+            navItem(
+                title: "Certifications",
+                onTap: () => scrollToSection(certificateKey)),
+            navItem(
+                title: "Projects", onTap: () => scrollToSection(projectsKey)),
             const SizedBox(width: 10),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => scrollToSection(contactKey),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent,
               ),
@@ -517,10 +366,15 @@ class PortfolioPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const FlutterLogo(size: 30),
+        Image.asset(
+          "logot.png",
+          width: 48,
+          height: 48,
+        ),
         IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {
+            _openEndDrawer();
             // You can implement a Drawer or Bottom Sheet here
           },
         )
@@ -537,59 +391,6 @@ class PortfolioPage extends StatelessWidget {
         fontWeight: FontWeight.bold,
         color: Color(0xFF9CD6F3),
       ),
-    );
-  }
-
-  Widget skillBar(String label, String iconPath, double progress) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          Image.asset(iconPath, width: 30, height: 30),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(
-                    color: Color(0xFF9CD6F3),
-                    fontSize: 14,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Container(
-                  height: 16,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFBAC5C7), // light gray
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: FractionallySizedBox(
-                    alignment: Alignment.centerLeft,
-                    widthFactor: progress,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: progress >= 7.0
-                            ? Color(0xFF85D2F9) // Dart full bar light blue
-                            : Color(0xFF033F4C), // dark blue for others
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _navItem(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Text(title, style: GoogleFonts.poppins(fontSize: 16)),
     );
   }
 }

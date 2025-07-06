@@ -1,19 +1,21 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:html' as html;
 
 class Certificate {
   final String title;
   final String org;
   final String date;
   final String skills;
+  final String url;
 
-  Certificate({
-    required this.title,
-    required this.org,
-    required this.date,
-    required this.skills,
-  });
+  Certificate(
+      {required this.title,
+      required this.org,
+      required this.date,
+      required this.skills,
+      required this.url});
 }
 
 class CertificateSlider extends StatefulWidget {
@@ -28,52 +30,60 @@ class _CertificateSliderState extends State<CertificateSlider> {
 
   final List<Certificate> certificates = [
     Certificate(
-      title: "Getting started with Flutter",
+      title: "Data Structures and Algorithms",
       org: "Infosys",
-      date: "AUG 2023",
-      skills: "Flutter, Dart",
+      date: "OCT 2024",
+      skills: "DSA ,Java",
+      url:
+          "https://drive.google.com/file/d/1molCkMj9yBDeAPwnQIe4hWsIvmUvoBgg/view?usp=drive_link",
     ),
     Certificate(
-      title: "Cloud Fundamentals",
-      org: "Microsoft",
-      date: "SEP 2023",
-      skills: "Azure, DevOps",
+      title: "Impetus And Concept '25",
+      org: "PICT",
+      date: "MAR 2025",
+      skills: "Kotlin ,Presenatation ",
+      url:
+          "https://drive.google.com/file/d/1NriveJa8JFJNTMkvi7FhdQ_4w60-dI6h/view?usp=drive_link",
     ),
     Certificate(
-      title: "AI for Everyone",
-      org: "Coursera",
-      date: "OCT 2023",
-      skills: "AI Basics, Neural Nets",
+      title: "AR & VR",
+      org: "C-DAC",
+      date: "AUG 2024",
+      skills: "AR, VR",
+      url:
+          "https://drive.google.com/file/d/1eLFv8dA9NjLtjgbv_X7IGUnCsWvkeDLz/view?usp=drive_link",
     ),
     Certificate(
-      title: "Java Fullstack",
-      org: "Internshala",
-      date: "DEC 2023",
-      skills: "Java, Spring, MySQL",
-    ),
-    Certificate(
-      title: "Getting started with Flutter",
+      title: "Java",
       org: "Infosys",
-      date: "AUG 2023",
+      date: "OCT 2024",
+      skills: "Java",
+      url:
+          "https://drive.google.com/file/d/16IQb8G6_qDlExMZVXcS__3c2-4mPC4LJ/view?usp=sharing",
+    ),
+    Certificate(
+      title: "TRINOVATE SYNERGY 1.0",
+      org: "TAE PUNE",
+      date: "APR 2025",
+      skills: "Presentation",
+      url:
+          "https://drive.google.com/file/d/1e8aFtB_biQ_vWk0pMK4WrZzSs5X9Uoo7/view?usp=drive_link",
+    ),
+    Certificate(
+      title: "GEN AI",
+      org: "GDG",
+      date: "NOV 2024",
+      skills: "Flutter, Google Cloud ",
+      url:
+          "https://drive.google.com/file/d/1AMoi6-d9a1YzOuqDCvozJIBo1jDtr5OL/view?usp=drive_link",
+    ),
+    Certificate(
+      title: "Programming with C",
+      org: "SSA",
+      date: "DEC 2021",
       skills: "Flutter, Dart",
-    ),
-    Certificate(
-      title: "Cloud Fundamentals",
-      org: "Microsoft",
-      date: "SEP 2023",
-      skills: "Azure, DevOps",
-    ),
-    Certificate(
-      title: "AI for Everyone",
-      org: "Coursera",
-      date: "OCT 2023",
-      skills: "AI Basics, Neural Nets",
-    ),
-    Certificate(
-      title: "Java Fullstack",
-      org: "Internshala",
-      date: "DEC 2023",
-      skills: "Java, Spring, MySQL",
+      url:
+          "https://drive.google.com/file/d/1eAszKVXex9Q51NDUmriRhr4i1tUrGOG2/view?usp=drive_link",
     ),
   ];
 
@@ -208,7 +218,12 @@ class _CertificateSliderState extends State<CertificateSlider> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (cert.url != null) {
+                    html.window
+                        .open(cert.url!, '_blank'); // ✅ Opens PDF in new tab
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue.withOpacity(0.7),
                 ),
@@ -220,7 +235,7 @@ class _CertificateSliderState extends State<CertificateSlider> {
                     color: Colors.white.withOpacity(0.7),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),

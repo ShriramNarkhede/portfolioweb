@@ -41,6 +41,8 @@ dependencies:
   marqueer: ^2.0.1
   glassmorphism: ^3.0.0
   font_awesome_flutter: ^10.8.0
+  syncfusion_flutter_pdfviewer: ^24.1.41
+
 
 dev_dependencies:
   flutter_test:

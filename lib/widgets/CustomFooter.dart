@@ -16,7 +16,7 @@ class CustomFooter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 400,
+      height: 435,
 // Deep Blue background
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
@@ -73,16 +73,16 @@ class CustomFooter extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 10),
           Wrap(
             alignment: WrapAlignment.center,
-            spacing: 40,
-            runSpacing: 20,
+            spacing: 30,
+            runSpacing: 15,
             children: [
               _ContactCard(
                 icon: FontAwesomeIcons.whatsapp,
                 text: "What'sApp",
-                url: 'https://wa.me/1234567890',
+                url: 'https://wa.me/9921908795',
               ),
               _ContactCard(
                 icon: FontAwesomeIcons.envelope,
