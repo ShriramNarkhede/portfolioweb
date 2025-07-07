@@ -13,7 +13,7 @@ class buildHeroImage extends StatelessWidget {
       child: Center(
           child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(300)),
-        child: Image.asset("profile.png"),
+        child: Image.asset("assets/profile.png"),
       )),
     );
   }

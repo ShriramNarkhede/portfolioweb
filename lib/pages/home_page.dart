@@ -89,7 +89,7 @@ class PortfolioPage extends StatelessWidget {
                       ),
                     ),
                     Lottie.asset(
-                      'lottie.json',
+                      'assets/lottie.json',
                       width: 240,
                       height: 250,
                       repeat: true,
@@ -104,7 +104,6 @@ class PortfolioPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                  
                     const Spacer(),
                     Navbarformobile(
                       title: "Home",
@@ -297,17 +296,17 @@ class PortfolioPage extends StatelessWidget {
                                 const SizedBox(height: 20),
                                 skillsBar(
                                     label: "Android Development",
-                                    iconPath: "andoid.png",
+                                    iconPath: "assets/andoid.png",
                                     progress: 0.9,
                                     context: context),
                                 skillsBar(
                                     label: "Wordpress",
-                                    iconPath: "wordpress.png",
+                                    iconPath: "assets/wordpress.png",
                                     progress: 0.2,
                                     context: context),
                                 skillsBar(
                                     label: "AI ML",
-                                    iconPath: "ai.png",
+                                    iconPath: "assets/ai.png",
                                     progress: 0.4,
                                     context: context),
                               ],
@@ -370,7 +369,7 @@ class PortfolioPage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Image.asset(
-            "logot.png",
+            "assets/logot.png",
             width: 48,
             height: 48,
           ),
@@ -404,7 +403,7 @@ class PortfolioPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Image.asset(
-          "logot.png",
+          "assets/logot.png",
           width: 48,
           height: 48,
         ),

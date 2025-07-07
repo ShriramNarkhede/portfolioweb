@@ -22,14 +22,14 @@ class buildDesktopLayout extends StatelessWidget {
               child: buildTextCard(title: "Protect Me App", desc: "$desc1", time: "1-6-2024 to 15-6-2024", link: "https://github.com/shreeram2302/womenSafetyApp"),
             ),
             const SizedBox(width: 20),
-            Expanded(child: buildImageCard(url: "banner.png")),
+            Expanded(child: buildImageCard(url: "assets/banner.png")),
           ],
         ),
         const SizedBox(height: 30),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: buildImageCard(url: "touristobanner.png")),
+            Expanded(child: buildImageCard(url: "assets/touristobanner.png")),
             const SizedBox(width: 20),
             Expanded(
               child: buildTextCard(title: "Touristo App ", desc: "$desc2", time: "1-6-2024 to 15-6-2024", link: "https://github.com/shreeram2302/Touristo_App"),

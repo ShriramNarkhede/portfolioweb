@@ -18,11 +18,11 @@ class buildMobileLayout extends StatelessWidget {
       children: [
         buildTextCard(title: "Protect Me App", desc: "$desc1", time: "1-6-2024 to 15-6-2024", link: "https://github.com/shreeram2302/womenSafetyApp"),
         const SizedBox(height: 20),
-        buildImageCard(url: "banner.png"),
+        buildImageCard(url: "assets/banner.png"),
         const SizedBox(height: 20),
         buildTextCard(title: "Touristo App ", desc: "$desc2", time: "1-6-2024 to 15-6-2024", link: "https://github.com/shreeram2302/Touristo_App"),
         const SizedBox(height: 20),
-        buildImageCard(url: "touristobanner.png")
+        buildImageCard(url: "assets/touristobanner.png")
       ],
     );
   }
