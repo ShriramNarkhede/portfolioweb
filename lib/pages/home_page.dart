@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,6 +7,7 @@ import 'package:portfolio_web/widgets/CertificateSlider.dart';
 
 import 'package:portfolio_web/widgets/navitem.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/CustomFooter.dart';
 import '../widgets/buildDesktopLayout.dart';
@@ -348,7 +350,27 @@ class PortfolioPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       isMobile ? buildMobileLayout() : buildDesktopLayout(),
-
+                      SizedBox(height: 20,),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'For More Click me...',
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  Uri url = Uri.parse(
+                                      "https://github.com/shreeram2302?tab=repositories");
+                                  if (await canLaunchUrl(url)) {
+                                    await launchUrl(url);
+                                  }
+                                },
+                            ),
+                          ],
+                        ),
+                      ),
                       //footer section
                       const SizedBox(height: 40),
                       KeyedSubtree(key: contactKey, child: CustomFooter()),

@@ -54,7 +54,7 @@ class buildHeroText extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 html.window.open(
-                    "https://drive.google.com/file/d/1HGVs2JST41Lsg1XowpmJ8nr71KoBqloB/view?usp=sharing",
+                    "https://drive.google.com/file/d/19ttiUs6KxEn6SqRbQZkucl3KioSXtZiR/view?usp=sharing",
                     "_blank"); // Opens PDF in new tab
               },
               style: ElevatedButton.styleFrom(
