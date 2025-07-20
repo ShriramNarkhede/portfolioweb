@@ -17,6 +17,7 @@ import '../widgets/buildMobileLayout.dart';
 import '../widgets/buildSlidingImages.dart';
 import '../widgets/buildtextSlide.dart';
 import '../widgets/navBarforMobile.dart';
+import '../widgets/projects_Grid.dart';
 import '../widgets/skillsBar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -33,6 +34,8 @@ class HomePage extends StatelessWidget {
 }
 
 class PortfolioPage extends StatelessWidget {
+  final ValueNotifier<bool> isScrolled = ValueNotifier(false);
+
   PortfolioPage({super.key});
 
   final homeKey = GlobalKey();
@@ -56,6 +59,16 @@ class PortfolioPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScrollController scrollController = ScrollController();
+
+    scrollController.addListener(() {
+      if (scrollController.offset > 50 && !isScrolled.value) {
+        isScrolled.value = true;
+      } else if (scrollController.offset <= 50 && isScrolled.value) {
+        isScrolled.value = false;
+      }
+    });
+
     void closeEndDrawer() {
       Navigator.of(context).pop();
     }
@@ -71,10 +84,9 @@ class PortfolioPage extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: SafeArea(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            child: Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -115,7 +127,7 @@ class PortfolioPage extends StatelessWidget {
                       },
                       icon: FaIcon(FontAwesomeIcons.home),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
                     Navbarformobile(
                       title: "Skills",
                       onTap: () {
@@ -124,7 +136,7 @@ class PortfolioPage extends StatelessWidget {
                       },
                       icon: FaIcon(FontAwesomeIcons.tools),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height:8),
                     Navbarformobile(
                       title: "Certifications",
                       onTap: () {
@@ -133,7 +145,7 @@ class PortfolioPage extends StatelessWidget {
                       },
                       icon: FaIcon(FontAwesomeIcons.certificate),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
                     Navbarformobile(
                       title: "Projects",
                       onTap: () {
@@ -143,7 +155,7 @@ class PortfolioPage extends StatelessWidget {
                       icon: FaIcon(FontAwesomeIcons.diagramProject),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 8,
                     ),
                     ElevatedButton.icon(
                       icon: const Icon(Icons.mail_outline),
@@ -161,7 +173,7 @@ class PortfolioPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
                   ],
                 ),
               ),
@@ -267,17 +279,17 @@ class PortfolioPage extends StatelessWidget {
                                 skillsBar(
                                     label: "Java",
                                     iconPath: "assets/java.png",
-                                    progress: 1.0,
+                                    progress: 1.5,
                                     context: context),
                                 skillsBar(
                                     label: "Javascript",
                                     iconPath: "assets/js.png",
-                                    progress: 0.25,
+                                    progress: 0.7,
                                     context: context),
                                 skillsBar(
                                     label: "Flutter",
                                     iconPath: "assets/flutter.png",
-                                    progress: 0.75,
+                                    progress: 0.5,
                                     context: context),
                                 skillsBar(
                                     label: "Python",
@@ -302,14 +314,19 @@ class PortfolioPage extends StatelessWidget {
                                     progress: 0.9,
                                     context: context),
                                 skillsBar(
-                                    label: "Wordpress",
-                                    iconPath: "assets/wordpress.png",
-                                    progress: 0.2,
-                                    context: context),
-                                skillsBar(
                                     label: "AI ML",
                                     iconPath: "assets/ai.png",
-                                    progress: 0.4,
+                                    progress: 0.3,
+                                    context: context),
+                                skillsBar(
+                                    label: "Web Development",
+                                    iconPath: "assets/webdev.png",
+                                    progress: 0.7,
+                                    context: context),
+                                skillsBar(
+                                    label: "WordPress",
+                                    iconPath: "assets/wordpress.png",
+                                    progress: 0.3,
                                     context: context),
                               ],
                             ),
@@ -350,19 +367,27 @@ class PortfolioPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
                       isMobile ? buildMobileLayout() : buildDesktopLayout(),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      //projects section
+                      ProjectsGrid(),
+                      const SizedBox(height: 20),
                       RichText(
                         text: TextSpan(
                           children: [
                             TextSpan(
                               text: 'For More Click me...',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  ),
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                color: Colors.lightBlueAccent,
+                                fontWeight: FontWeight.bold,
+                              ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () async {
                                   Uri url = Uri.parse(
-                                      "https://github.com/shreeram2302?tab=repositories");
+                                      "https://github.com/ShriramNarkhede?tab=repositories");
                                   if (await canLaunchUrl(url)) {
                                     await launchUrl(url);
                                   }
@@ -371,6 +396,7 @@ class PortfolioPage extends StatelessWidget {
                           ],
                         ),
                       ),
+
                       //footer section
                       const SizedBox(height: 40),
                       KeyedSubtree(key: contactKey, child: CustomFooter()),
@@ -384,39 +410,58 @@ class PortfolioPage extends StatelessWidget {
         }));
   }
 
+  void _scrollToSection(GlobalKey key) {
+    final context = key.currentContext;
+    if (context != null) {
+      Scrollable.ensureVisible(
+        context,
+        duration:
+            const Duration(milliseconds: 600), // Adjust duration for smoothness
+        curve: Curves.easeInOut, // Smooth animation curve
+      );
+    }
+  }
+
   Widget _buildNavbar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Image.asset(
-            "assets/logot.png",
-            width: 48,
-            height: 48,
-          ),
-        ),
-        Row(
-          children: [
-            navItem(title: "Home", onTap: () => scrollToSection(homeKey)),
-            navItem(title: "Skills", onTap: () => scrollToSection(skillskey)),
-            navItem(
-                title: "Certifications",
-                onTap: () => scrollToSection(certificateKey)),
-            navItem(
-                title: "Projects", onTap: () => scrollToSection(projectsKey)),
-            const SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: () => scrollToSection(contactKey),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueAccent,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+         Image.asset("assets/logot.png",fit: BoxFit.cover, height: 40, width: 40),
+          Row(
+            children: [
+              navItem(
+                title: "Home",
+                onTap: () => _scrollToSection(homeKey),
               ),
-              child: const Text("Contact me",
-                  style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        ),
-      ],
+              navItem(
+                title: "Skills",
+                onTap: () => _scrollToSection(skillskey),
+              ),
+              navItem(
+                title: "Certifications",
+                onTap: () => _scrollToSection(certificateKey),
+              ),
+              navItem(
+                title: "Projects",
+                onTap: () => _scrollToSection(projectsKey),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () => _scrollToSection(contactKey),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                ),
+                child: const Text(
+                  "Contact me",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -424,11 +469,7 @@ class PortfolioPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset(
-          "assets/logot.png",
-          width: 48,
-          height: 48,
-        ),
+        Image.asset("assets/logot.png",fit: BoxFit.cover, height: 40, width: 40),
         IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {

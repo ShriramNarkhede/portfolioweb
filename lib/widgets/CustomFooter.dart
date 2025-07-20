@@ -36,8 +36,8 @@ class CustomFooter extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           const Text(
-            'Android innovation, Kotlin-driven development, agile iterations, lean \n'
-            'product scaling, and disruptive mobile experiences.',
+            'I build stuff that actually works —\n'
+            'web, apps, AI. Clean code. Real impact.',
             style: TextStyle(
               fontSize: 14,
               color: Colors.white70,
@@ -58,13 +58,13 @@ class CustomFooter extends StatelessWidget {
                 icon: const FaIcon(FontAwesomeIcons.linkedin,
                     color: Colors.white),
                 onPressed: () =>
-                    _launchURL('www.linkedin.com/in/shriram09'),
+                    _launchURL('www.linkedin.com/in/shriramnarkhede'),
               ),
               IconButton(
                 icon: const FaIcon(FontAwesomeIcons.github,
                     color: Colors.white),
                 onPressed: () =>
-                    _launchURL('https://github.com/shreeram2302'),
+                    _launchURL('https://github.com/ShriramNarkhede'),
               ),
               IconButton(
                 icon:

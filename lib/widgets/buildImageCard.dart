@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 
-class buildImageCard extends StatelessWidget {
-  const buildImageCard({
+class BuildImageCard extends StatelessWidget {
+  const BuildImageCard({
     super.key,
     required this.url,
   });
@@ -11,13 +10,17 @@ class buildImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        image: DecorationImage(
-          image: AssetImage(url),
-          fit: BoxFit.cover,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15), // Ensures rounded corners
+      child: Container(
+        width: double.infinity, // Ensures the container takes full width
+        height: 330, // Set a fixed height for the image card 
+        // Ensures the container takes full width
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(url),
+            fit: BoxFit.cover, // Ensures the image covers the container
+          ),
         ),
       ),
     );

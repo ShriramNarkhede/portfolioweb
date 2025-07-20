@@ -19,7 +19,7 @@ class buildtextSlide extends StatelessWidget {
           ),
           Text(
             "I can ",
-            style: GoogleFonts.abel(
+            style: GoogleFonts.poppins(
               textStyle: TextStyle(
                 color: Colors.blueAccent,
                 fontSize: 24,
@@ -35,7 +35,7 @@ class buildtextSlide extends StatelessWidget {
             animatedTexts: [
               TypewriterAnimatedText(
                 'build your first app',
-                textStyle: GoogleFonts.abel(
+                textStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 24,
@@ -47,7 +47,7 @@ class buildtextSlide extends StatelessWidget {
               ),
               TypewriterAnimatedText(
                 'edit your video',
-                textStyle: GoogleFonts.abel(
+                textStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 24,
@@ -59,7 +59,7 @@ class buildtextSlide extends StatelessWidget {
               ),
               TypewriterAnimatedText(
                 'make you a logo',
-                textStyle: GoogleFonts.abel(
+                textStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 24,
@@ -71,7 +71,7 @@ class buildtextSlide extends StatelessWidget {
               ),
               TypewriterAnimatedText(
                 'build you a website',
-                textStyle: GoogleFonts.abel(
+                textStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 24,
@@ -83,7 +83,7 @@ class buildtextSlide extends StatelessWidget {
               ),
               TypewriterAnimatedText(
                 'make you a poster',
-                textStyle: GoogleFonts.abel(
+                textStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 24,
@@ -95,7 +95,7 @@ class buildtextSlide extends StatelessWidget {
               ),
               TypewriterAnimatedText(
                 'make you a flyer',
-                textStyle: GoogleFonts.abel(
+                textStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 24,

@@ -20,7 +20,7 @@ class Navbarformobile extends StatelessWidget {
         color: Colors.white24,
         borderRadius: BorderRadius.circular(16),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

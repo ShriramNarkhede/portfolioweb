@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/Home_Page.dart';
+import 'widgets/projects_Grid.dart';
 
 void main() {
   runApp(MyPortfolioApp());

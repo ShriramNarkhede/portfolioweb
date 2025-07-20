@@ -13,16 +13,16 @@ class buildMobileLayout extends StatelessWidget {
     String desc1 =
         "A real-time emergency alert system developed using Kotlin for Android, aimed at enhancing women's safety through smart, responsive features. The app integrates shake detection to trigger alerts, captures the user’s live location, and automatically records an image and voice note during emergencies. It also supports Wear OS integration, enabling smartwatch-triggered alerts for faster response. The system ensures swift and silent communication with pre-defined contacts, offering a reliable layer of personal security.";
     String desc2 =
-        "Turisto is a trip planning Android application built using Java and XML, designed to help users plan their trips, generate itineraries, and get budget-friendly travel suggestions. The app provides a user-centric interface to explore locations, manage travel plans, and get personalized recommendations based on preferences and budget.";
+        "Notes Sharing Platform is a web-based application built using PHP and MySQL, designed to help students upload, manage, and access academic notes efficiently. The platform offers a clean and user-friendly interface where users can sign up, log in, and browse notes organized semester-wise. It enables seamless sharing and downloading of study material, promoting academic collaboration and easy access to resources.";
     return Column(
       children: [
-        buildTextCard(title: "Protect Me App", desc: "$desc1", time: "1-6-2024 to 15-6-2024", link: "https://github.com/shreeram2302/womenSafetyApp"),
+        buildTextCard(title: "Protect Me App", desc: "$desc1", time: "1-6-2024 to 15-6-2024", link: "https://github.com/ShriramNarkhede/womenSafetyApp"),
         const SizedBox(height: 20),
-        buildImageCard(url: "assets/banner.png"),
+        BuildImageCard(url: "assets/banner.png"),
         const SizedBox(height: 20),
-        buildTextCard(title: "Touristo App ", desc: "$desc2", time: "1-6-2024 to 15-6-2024", link: "https://github.com/shreeram2302/Touristo_App"),
+        buildTextCard(title: "Notes Sharing Website", desc: "$desc2", time: "1-6-2024 to 15-6-2024", link: "https://github.com/ShriramNarkhede/Notes-platform-php.git"),
         const SizedBox(height: 20),
-        buildImageCard(url: "assets/touristobanner.png")
+        BuildImageCard(url: "assets/banners/Notes_banner.png")
       ],
     );
   }

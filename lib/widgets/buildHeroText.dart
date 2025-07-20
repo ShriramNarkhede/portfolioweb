@@ -39,13 +39,13 @@ class buildHeroText extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.blue, fontWeight: FontWeight.bold)),
               TextSpan(
-                  text: ",\nMobile App Developer & Data Science Enthusiast"),
+                  text: ",\nSoftware Developer  & Data Science Enthusiast"),
             ],
           ),
         ),
         const SizedBox(height: 15),
         Text(
-          "Innovative Flutter Developer with Expertise in Building Scalable Cross-Platform \nApps and Driving Seamless User Experiences",
+          "Engineer with a Passion for Scalable Code, Optimized APIs, \nand Pixel-Perfect UI Design.",
           style: GoogleFonts.poppins(fontSize: 16, color: Colors.grey[600]),
         ),
         const SizedBox(height: 20),
