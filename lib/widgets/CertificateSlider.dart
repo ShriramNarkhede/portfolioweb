@@ -219,9 +219,10 @@ class _CertificateSliderState extends State<CertificateSlider> {
               const SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
+                  // ignore: unnecessary_null_comparison
                   if (cert.url != null) {
                     html.window
-                        .open(cert.url!, '_blank'); // ✅ Opens PDF in new tab
+                        .open(cert.url, '_blank'); // ✅ Opens PDF in new tab
                   }
                 },
                 style: ElevatedButton.styleFrom(

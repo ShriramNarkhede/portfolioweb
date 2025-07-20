@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'pages/Home_Page.dart';
-import 'widgets/projects_Grid.dart';
 
 void main() {
   runApp(MyPortfolioApp());
 }
 
 class MyPortfolioApp extends StatelessWidget {
+  const MyPortfolioApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
